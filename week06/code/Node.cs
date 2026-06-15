@@ -12,6 +12,13 @@ public class Node
     public void Insert(int value)
     {
         // TODO Start Problem 1
+        // Only insert unique values into the tree (sorted set behavior)
+
+        if (value == Data)
+        {
+            // Duplicate found, do nothing
+            return;
+        }
 
         if (value < Data)
         {
@@ -34,12 +41,31 @@ public class Node
     public bool Contains(int value)
     {
         // TODO Start Problem 2
-        return false;
+        // Recursively search for the value in the tree
+
+        if (value == Data)
+            return true;
+
+        if (value < Data)
+        {
+            // Search left subtree
+            return Left is not null && Left.Contains(value);
+        }
+        else
+        {
+            // Search right subtree
+            return Right is not null && Right.Contains(value);
+        }
     }
 
     public int GetHeight()
     {
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        // Height = 1 + max(height of left, height of right)
+
+        int leftHeight = Left is null ? 0 : Left.GetHeight();
+        int rightHeight = Right is null ? 0 : Right.GetHeight();
+
+        return 1 + Math.Max(leftHeight, rightHeight);
     }
 }
